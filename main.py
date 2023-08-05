@@ -61,8 +61,8 @@ def main():
         
         #opens the txt file and writes into it
         fileName = input("What name do you want to save it under?\n")
-        fileObject = open(r"definatlynotpass.txt","w+")
-        fileObject.write(savePassword+" - "+fileName)    
+        fileObject = open(r"definatlynotpass.txt","a")
+        fileObject.write("\n"+savePassword+" - "+fileName)    
         fileObject.close()
         
         print("password saved successfully")
