@@ -1,12 +1,13 @@
 #imports
 import random
 from time import sleep
+import string
 
 # Lists for different characters and symbols
 specialCharacters = ["!","@","$","%","&"]
 numbers = ['1','2','3','4','5','6','7','8','9','0']
-capitalAlphabets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-alphabets = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+# capitalAlphabets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+# alphabets = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 # Password list
 password = []
@@ -26,11 +27,11 @@ def main():
             
             #depending on the number random password letter/symbol/number is appended to the main password list
             if kay == 1:
-                password.append(random.choice(alphabets))
+                password.append(random.choice(string.ascii_lowercase))
             elif kay == 2: 
                 password.append(random.choice(specialCharacters))
             elif kay == 3: 
-                password.append(random.choice(capitalAlphabets))
+                password.append(random.choice(string.ascii_uppercase))
             else:
                 password.append(random.choice(numbers))
     elif type == 1:
@@ -39,9 +40,9 @@ def main():
             jay = random.choice(range(1,4))
             
             if jay == 1:
-                password.append(random.choice(alphabets))
+                password.append(random.choice(string.ascii_lowercase))
             elif jay == 2: 
-                password.append(random.choice(capitalAlphabets))
+                password.append(random.choice(string.ascii_uppercase))
             else:
                 password.append(random.choice(numbers))
     #If user put in a non valid answer        
