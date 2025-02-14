@@ -1,83 +1,58 @@
-#imports
 import random
-from time import sleep
 import string
+from time import sleep
 
-# Lists for different characters and symbols
-specialCharacters = ["!","@","$","%","&"]
-numbers = ['1','2','3','4','5','6','7','8','9','0']
-# capitalAlphabets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-# alphabets = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+def generate_password(length, include_symbols):
+    #Generates a random password based on user specifications.
+    characters = string.ascii_letters + string.digits
+    if include_symbols:
+        characters += "!@$%&"
+    
+    return ''.join(random.choices(characters, k=length))
 
-# Password list
-password = []
+def save_password(password):
+    #Saves the generated password to a text file.
+    file_name = input("Enter a name to save the password under: ")
+    with open("definatlynotpass.txt", "a") as file:
+        file.write(f"{password} - {file_name}\n")
+    print("Password saved successfully.")
+
 def main():
-    # Inputs for length of password and type of password
-    length = int(input("What should be the length of password?\n"))
-    print("1 - only alphabets and numbers\n2 - alphabets numbers and symbols\n")
-    type = int(input("which type of password do you want?\n"))
-
-
-    #identifies type of password
-    if type == 2:
-        for i in range(0,length):
-            
-            #chooses a random number
-            kay = random.choice(range(1,5))
-            
-            #depending on the number random password letter/symbol/number is appended to the main password list
-            if kay == 1:
-                password.append(random.choice(string.ascii_lowercase))
-            elif kay == 2: 
-                password.append(random.choice(specialCharacters))
-            elif kay == 3: 
-                password.append(random.choice(string.ascii_uppercase))
-            else:
-                password.append(random.choice(numbers))
-    elif type == 1:
-        for i in range(0,length):
-            
-            jay = random.choice(range(1,4))
-            
-            if jay == 1:
-                password.append(random.choice(string.ascii_lowercase))
-            elif jay == 2: 
-                password.append(random.choice(string.ascii_uppercase))
-            else:
-                password.append(random.choice(numbers))
-    #If user put in a non valid answer        
-    else : 
-        print("invalid input")
+    try:
+        length = int(input("Enter the length of the password: "))
+        if length <= 0:
+            raise ValueError("Password length must be greater than zero.")
+        
+        print("\n1 - Only alphabets and numbers\n2 - Alphabets, numbers, and symbols\n")
+        choice = input("Choose password type (1 or 2): ")
+        
+        if choice not in ('1', '2'):
+            raise ValueError("Invalid choice! Please enter 1 or 2.")
+        
+        password = generate_password(length, include_symbols=(choice == '2'))
+        print(f"\nGenerated Password: {password}")
+        
+        sleep(2)
+        save_option = input("Do you want to save the password? (y/n): ").strip().lower()
+        
+        if save_option == 'y':
+            save_password(password)
+        else:
+            print("Password not saved.")
+    
+    except ValueError as e:
+        print(f"Error: {e}")
         main()
-    
-    #prints password list as a single line
-    savePassword = ''.join(password)
-    print(savePassword)
-    
-    #waits for 3 sec before asking if to save
-    sleep(3)
-    save = int(input("Do you wish to save the password?\n1 <= Yes\n2 <= NO\n"))
-    
-    if save == 1:
-        
-        #opens the txt file and writes into it
-        fileName = input("What name do you want to save it under?\n")
-        fileObject = open(r"definatlynotpass.txt","a")
-        fileObject.write("\n"+savePassword+" - "+fileName)    
-        fileObject.close()
-        
-        print("password saved successfully")
-        
-    else :
-        print("didnt save the password")
-        
 
-#executes main function when called
 if __name__ == '__main__':
     main()
 
+
 #Step 1 = take length and type of characters and symbols as input - done
-#step 2 = store them in a list - done
-#step 4 = use a loop to generate random passwords and append to password list - done
+#step 2 = crete function to generate passwords - done
+#step 4 = create function to save the passwords - done
 #step 5 = print password - done
-#step 5 = store password in txt file for future reference - done
+
+
+#future steps 
+#   build gui
